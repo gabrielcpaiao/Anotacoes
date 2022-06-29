@@ -1,0 +1,244 @@
+Estudo dirigido ao Git e GitHub --> estou seguindo o livro "Controlando verções com Git e GitHub"
+========================================================================================================================================================================
+Abra o Git Bash:
+========================================================================================================================================================================
+Configurando user name e email:
+git config --global user.name "Gabriel Paião"
+git config --global user.email costapaiao@hotmail.com
+========================================================================================================================================================================
+Para saber onde é a pasta pessoal:
+echo ~
+========================================================================================================================================================================
+Para entrar em um diretorio: (nesse caso no diretorio citacoes)
+cd ~/citacoes
+
+Para voltar em um diretório anterior:
+cd ..
+========================================================================================================================================================================
+Para transformar o diretório atual em um repositório do Git, basta executar o comando git init:
+git init
+========================================================================================================================================================================
+Ver a situação dos arquivos no repositório Git:
+git status
+========================================================================================================================================================================
+Para adicionar arquivos no diretorio selecionado:
+git add NOMEdoARQUIVO.SuaExtensao
+
+git add .
+========================================================================================================================================================================
+Para gravar as mudanças no repositorio:
+git commit -m "MENSAGEM"
+========================================================================================================================================================================
+Para verificar o histórico das alterações gravadas no repositório:
+git log
+========================================================================================================================================================================
+Para subir um diretorio que estiver no computador para o Git Hub.
+Faça um diretorio no github e depois digite (sera usado exemplos ja feito):
+
+git remote add origin https://github.com/gabrielcpaiao/citacoes.git (somente na primeira vez que criar o repositorio)
+git branch -M main
+git push -u origin main ou git push origin master
+
+A partir da segunda vez é so dar (git push)
+========================================================================================================================================================================
+Para baixar os arquivos do GitHub em um diretorio no meu computador:
+Faça uma nova pasta. Entre nessa pasta (cd NomeDaPasta) e depois dê um (git clone) com o endereço: git clone https://github.com/fulanodasilva/citacoes.git
+========================================================================================================================================================================
+Para listar os arquivos de um diretorio remoto:
+ls -lha
+Detalhe (foi criado um subdiretório oculto chamado .git na pasta. Esse subdiretório é um repositório do Git completo, que conterá
+todo o histórico de alterações dos arquivos)
+========================================================================================================================================================================
+Para ser possivel rastrear todos os asquivos de um diretorio pelo Git, pode-se digitar o comando:
+git add .
+Desse modo, todos os arquivos que estiver neste diretorio principal pode ser rastreado.
+========================================================================================================================================================================
+Para rastrear arquivos de um diretorio especifico:
+git add NomeDoDiretorio.
+========================================================================================================================================================================
+Toda vez que um der o comando "git add" o/os arquivos entram na área de stage (área rastreada pelo git para distinguir as direnças entre arquivos modificados)
+========================================================================================================================================================================
+Para ignorar arquivos que não precisam ser add no diretorio (não precisam ser rastreados/incluidos no comando git add).
+Para resolver isto, basta criar um arquivo no diretorio principal chamado ".gitignore" com os nomes dos arquivos que deseja ignorar
+========================================================================================================================================================================
+O arquivo (.gitignore) precisa ser rastreado, então deve-se incluir à área de stage:
+git add .gitignore
+========================================================================================================================================================================
+Para  ignorar todos os arquivos com a extensão .log, basta colocar *.log no .gitignore. Se quiser ignorar todos os arquivos .bmp do subdiretório imagens, deve-se inserir
+imagens/*.bmp no .gitignore.
+========================================================================================================================================================================
+Para adicionar e commitar as alterações por meio de um unico comando:
+git commit -a -m "MENSAGEM"
+git commit -am "MENSAGEM"
+========================================================================================================================================================================
+O termo commit significa gravar novos arquivos e alterações em um repositório.
+========================================================================================================================================================================
+Existe três areas quando trabalha com Git.
+
+O diretorio, a stage e o repositorio.
+
+Quando cria um arquivo ou altera ele está aprenas no diretorio, precisa dar um (git add) para jogar esse arquivo para area de stage na qual o arquivo podera ser
+rastreado. Depois disso (git commit) gravara o arquivo que esta na area de stage para o repositorio.
+========================================================================================================================================================================
+3.6 Removendo arquivos do repositório:
+Primeiro remove o arquivo do repositorio jogando ele pra stage e depois da um git commit pra gravar.
+
+git rm nomeDoArquivo.suaExtensao 
+========================================================================================================================================================================
+3.7 Renomeando e movendo arquivos:
+
+git mv nomeDoArquivoAntigo.suaExtensao nomeDoArquivoRenomeado.suaExtensao
+========================================================================================================================================================================
+Mover um arquivo para outro diretorio:
+
+git mv nomeDoArquivo.extensao pastaNova/nomeDoArquivo.extensao
+========================================================================================================================================================================
+comando (git checkout -- nomeDoArquivo.extensao) desfaz as alterações ainda não rastreadas, que nao estao na stage.
+
+Esse comando só desfaz a alteração nos arquivos que ainda nao estao na area de stage (git add)
+========================================================================================================================================================================
+Para recuperar um arquivo deletado acidentalmente: 
+
+git checkout --  nomeDoArquivo.extensao
+========================================================================================================================================================================
+Remover arquivo da area de stage mas preservar a mudança que foi feita no arquivo:
+
+git reset -- nomeDoArquivo.extensao
+========================================================================================================================================================================
+Retirar arquivos da area de stage e defazer alteracoes nesses arquivos:
+
+git reset --hard
+========================================================================================================================================================================
+Desfazer mudancas ja commitadas:  --> exemplo: git revert --no-edit 6111116
+
+git revert --no-edit numeroDoUltimoCommit
+
+ou
+
+git reset --hard numeroDoCommit        --> exemplo: git reset --hard 7733388
+========================================================================================================================================================================
+Mostrar apenas os numeros dos commits e suas mensagem:
+
+git log --oneline
+========================================================================================================================================================================
+
+
+
+========================================================================================================================================================================
+Capítulo 4 (Trabalhando com repositórioremoto)
+
+Para criar um repositorio remoto:
+git init --bare nomeDeUmDiretorio.git
+
+Comando que ensina o Git encontrar o repositorio remoto:
+EXEMPLO--> git remote add servidor file://192.168.1.1/opt/repositorios/moveis-ecologicos.git
+O numero (192.168.1.1) é o IP do servidor e o endereco (/opt/repositorios/moveis-ecologicos.git) é o diretorio onde esta o repositorio remoto
+
+Para listar os repositorios remotos que foram adicionados:
+git remote -v
+
+Renomear o repositorio remoto:
+git remote rename nomeAnterior novoNome
+
+Alterar a url de um repositorio remoto:
+git remote set-url nomeDoRepositorio file://IPdoServidor+enderecoDoRepositorio
+EXEMPLO--> git remote set-url servidor file://192.168.1.2/opt/repositorios/moveis-ecologicos.git
+
+Enviar commits para repositorio remoto:
+git push servidor master
+
+Clonar repositorio remoto:
+git clone URLdoRepositorioRemoto
+EXEMPLO--> git clone file://192.168.1.1/opt/repositorios/ moveis-ecologicos.git
+
+Sincronizando o repositorio local com o servidor (puxar commmits para o repositorio local):
+git pull nomeRepositorioRemoto nomeBranchLocal
+EXEMPLO-->git pull servidor master
+========================================================================================================================================================================
+
+
+
+========================================================================================================================================================================
+Capitulo 5 (Hospedando o repositorio no GitHub)
+
+Sempre que um novo membro da equipe for trabalhar no projeto (GitHub), ele deve primeiramente clonar o repositório, efetuar as alterações necessárias, 
+comitar tais alterações, e então enviar os commits para o repositório remoto.
+
+Para adicionar o repositorio remoto:
+git remote add origin endereçoDoRepositorioGitHub
+EXEMPLO --> git remote add origin https://github.com/fulanodasilva/moveis-ecologicos.git
+
+Enviar os commits para o GitHub:
+git push origin master
+
+Sempre que formos sincronizar nosso repositório local, o Git nos solicitará o usuário e senha cadastrados no GitHub.
+
+Para clonar o repositorio remoto localizado no GitHub:
+git clone enderecoDoRepositorioNoGitHub
+EXEMPLO -->  git clone https://github.com/fulanodasilva/moveis-ecologicos.git
+
+Depois de alterar o/os arquivos que foram clonados do GitHub, tem-se que enviar os commits para o GitHub:
+git push origin master
+
+Dar permissao para outro usuario enviar commit para um repositorio:
+O dono do repositorio acessa as configuracoes do repositorio e adiciona outro usuario como colaborador
+
+Pull request: Trabalhar em projetos opensource
+O botão fork do GitHub cria uma copia de um repositorio de alguem para o nosso usuario
+Fazer um clone deste repositorio (do meu usuario) e realizar os commit neste repositorio (no qual eu sou o dono)
+Para integrar os commits que fiz no meu repositorio ao repositorio original, deve-se enviar um Pull Request ao usuario original solicitando que seja feito
+um pull dos commits que fiz em meu usuario
+Para executar o pull request ir até a pagina do meu repositorio no GitHub, clicar em Pull Requests e depois New pull request
+Depois clicar em Create pull requests
+========================================================================================================================================================================
+
+
+
+========================================================================================================================================================================
+Capitulo 6 (Organizando o trabalho com branches)
+
+Uma branch é uma linha independente de desenvolvimento em que podemos comitar novas versões do código sem afetar outras branches
+
+Para listar as branch do repositorio:
+git branch
+
+A branch master aponta para o último commit que fizemos.
+
+Para listar as branches com os commits associados:
+git branch -v
+
+Para verificar os commits com seus respectivos pais:
+git log --parents
+
+Para saber o commit para o qual a master está apontando:
+git log --decorate
+
+Para exibir o histórico resumido do nosso repositório com o commit para o qual a master está apontado e os commits pai de cada commit:
+git log --oneline --decorate --parents
+
+Para criar uma branch:
+git branch nomeDaBranch
+
+O HEAD aponta para a branch na qual estamos trabalhando.
+
+Para trocar de branch:
+git checkout nomeDaBranch
+
+Para deletar uma branch:
+git branch -d nomeDaBranch
+
+Verificar quais branches ainda não estão mescladas (considerando qu estamos na branch master):
+git branch --no-merged
+
+Para juntar as alteracoes de outras branches com a master:
+git merge nomeDaBranch -m "Mensagem de commit"
+========================================================================================================================================================================
+
+
+
+
+========================================================================================================================================================================
+Capitulo 7 (Trabalhando em equipe com branches remotas)
+
+
+========================================================================================================================================================================
