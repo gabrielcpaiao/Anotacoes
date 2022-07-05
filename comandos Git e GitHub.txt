@@ -240,5 +240,23 @@ git merge nomeDaBranch -m "Mensagem de commit"
 ========================================================================================================================================================================
 Capitulo 7 (Trabalhando em equipe com branches remotas)
 
+Listar as branches remotas:
+git branch -r
 
+Mostrar tanto as branches locais como as remotas:
+git branch -a
+git branch -a -v
+
+Para saber quais commits as branches remotas estão apontando:
+git branch -r -v
+
+Para compartilhar uma branche local com o repositorio remoto:
+git push nomeDaBrancheRemota nomeDaBrancheLocal
+
+Comando:
+git checkout -t origin/nomeDoRepositorio
+git checkout -b nomeDoRepositorio origin/nomeDoRepositorio
+
+Para obter commit da branch remota para dentro do repositorio que estou:
+git fetch nomeDaBranch
 ========================================================================================================================================================================
